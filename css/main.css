@@ -1,0 +1,71 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	background-image: url("../img/blue_felt.jpg");
+	background-repeat: repeat;
+}
+
+/* -------- Table -------- */
+.house_wrap {
+	height: 40%;
+	display: block;
+}
+
+/* -------- Controls -------- */
+.control_wrap {
+	height: 20%;
+	display: block;
+	text-align: center;
+}
+
+.control_wrap .button {
+	padding: 10px;
+	min-width: 290px;
+	display: inline-block;
+	border: 1px solid #fff;
+	color: #fff;
+	cursor: pointer;
+	font-family: "Consolas";
+	font-size: 3em;
+}
+
+.control_wrap .button:hover {
+	background-color: #fff;
+	color: #000;
+}
+
+/* -------- Player Area -------- */
+.player_wrap {
+	height: 40%;
+	display: block;
+}
+
+.player_card_area {
+	margin: 0 auto;
+	width: 60%;
+	height: 100%;
+}
+
+.player_card_area img {
+	margin-left: -175px;
+	height: 100%;
+}
+
+.player_card_area img:first-child {
+	margin-left: 0;
+}
+
+/* -------- Player Funds -------- */
+.player_funds {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 10px;
+	background-color: rgba(0,0,0,0.35);
+	color: #c7c7c7;
+	line-height: 0.8em;
+	font-family: "Consolas";
+	font-size: 3em;
+}
