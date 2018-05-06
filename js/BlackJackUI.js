@@ -7,6 +7,11 @@ class BlackJackUI {
 	 */
 	constructor () {
 		/**
+		 * @type {BlackJack} blackjack core controller
+		 */
+		this.game = new BlackJack ();
+		
+		/**
 		 * @type {Element} player move input buttons wrap
 		 */
 		this.$controls = document.getElementsByClassName ("control_wrap")[0];
@@ -25,6 +30,17 @@ class BlackJackUI {
 		this.$cardAreaHouse = document.getElementsByClassName ("house_card_area")[0];
 		this.$playerTotal = document.getElementsByClassName ("player_total")[0];
 		
+		/**
+		 * @var {Element} $betValueWrap current bet / bet setup section wrap
+		 * @var {Element} $currentBet   current bet box during bet setup
+		 * @var {Element} $betValue     displayed bet box after setup
+		 * @var {Element} $playerFunds  total player funds box
+		 */
+		this.$betValueWrap = document.getElementsByClassName ("bet_value_wrap")[0];
+		this.$currentBet = document.getElementsByClassName ("bet_box_value")[0];
+		this.$betValue = document.getElementsByClassName ("bet_value")[0];
+		this.$playerFunds = document.getElementsByClassName ("player_funds_value")[0];
+		
 		// Bind the control buttons
 		let $hit = document.getElementsByClassName ("btn_hit")[0];
 		let $stand = document.getElementsByClassName ("btn_stand")[0];
@@ -36,10 +52,22 @@ class BlackJackUI {
 		$double.addEventListener ("click", this.buttonDoubleClick.bind (this));
 		$surrender.addEventListener ("click", this.buttonSurrenderClick.bind (this));
 		
-		/**
-		 * @type {BlackJack} blackjack core controller
-		 */
-		this.game = new BlackJack ();
+		// Bind bet setup arrow controls
+		let $arrowUp = document.getElementsByClassName ("arrow_up")[0];
+		let $arrowDown = document.getElementsByClassName ("arrow_down")[0];
+		
+		$arrowUp.addEventListener ("click", this.buttonArrowUpClick.bind (this));
+		$arrowDown.addEventListener ("click", this.buttonArrowDownClick.bind (this));
+		
+		// Bind bet setup "lock in" button
+		let $lock_in = document.getElementsByClassName ("lock_in")[0];
+		
+		$lock_in.addEventListener ("click", this.buttonLockInClick.bind (this));
+		
+		// Populate bet and funds value boxes
+		this.$currentBet.innerHTML = 10;
+		this.$betValue.innerHTML = 10;
+		this.$playerFunds.innerHTML = this.game.totalFunds;
 	}
 	
 	/**
@@ -50,15 +78,71 @@ class BlackJackUI {
 		let deltCard = this.game.deal ("player");
 		this.addCard (deltCard, "player");
 		
-		let status = this.game.playerStatus ();
+		let status = this.game.getPlayerStatus ();
 		
 		if (status === "bust") {
 			this.$controls.classList.add ("hide");
 			this.$messages.classList.add ("bust");
 		}
 		
-		let deltCard = this.game.deal ("house");
+		deltCard = this.game.deal ("house");
 		this.addCard (deltCard, "house");
+	}
+	
+	buttonStandClick () {
+		
+	}
+	
+	buttonDoubleClick () {
+		
+	}
+	
+	buttonSurrenderClick () {
+		
+	}
+	
+	/**
+	 * Handles the click of the bet setup "lock in" button which finalizes the
+	 * current bet and starts the round of blackjack.
+	 */
+	buttonLockInClick () {
+		this.$betValue.innerHTML = this.game.currentBet;
+		this.$betValueWrap.classList.add ("locked");
+		
+		this.$playerFunds.innerHTML = this.game.placeBet ();
+		
+		let deltCards = this.game.startGame ();
+		this.addCard (deltCards["player"][0], "player");
+		this.addCard (deltCards["player"][1], "player");
+		this.addCard (deltCards["house"][0], "house");
+		this.addCard (deltCards["house"][1], "house");
+		
+		this.$playerTotal.innerHTML = this.game.playerTotal;
+		
+		this.$controls.classList.remove ("hide");
+		this.$playerTotal.classList.remove ("hide");
+	}
+	
+	/**
+	 * Handles the click of the bet setup down arrow.
+	 */
+	buttonArrowUpClick () {
+		let betStatus = this.game.increaseBet ();
+		
+		if (betStatus !== false) {
+			this.$currentBet.innerHTML = betStatus;
+		}
+	}
+	
+	/**
+	 * Handles the click of the bet setup down arrow.
+	 */
+	buttonArrowDownClick () {
+		let betStatus = this.game.decreaseBet ();
+		
+		if (betStatus !== false) {
+			this.$currentBet.innerHTML = betStatus;
+		}
 	}
 	
 	/**
@@ -70,6 +154,7 @@ class BlackJackUI {
 	addCard (card, target) {
 		if (target === "player") {
 			this.$cardAreaPlayer.appendChild (card.$element);
+			this.$playerTotal.innerHTML = this.game.playerTotal;
 		} else {
 			this.$cardAreaHouse.appendChild (card.$element);
 		}
