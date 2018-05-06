@@ -3,6 +3,9 @@
  */
 class BlackJack {
 	constructor () {
+		// Control buttons
+		this.$controls = document.getElementsByClassName ("control_wrap")[0];
+		
 		let $hit = document.getElementsByClassName ("btn_hit")[0];
 		let $stand = document.getElementsByClassName ("btn_stand")[0];
 		let $double = document.getElementsByClassName ("btn_double")[0];
@@ -13,10 +16,13 @@ class BlackJack {
 		$double.addEventListener ("click", this.buttonDoubleClick.bind (this));
 		$surrender.addEventListener ("click", this.buttonSurrenderClick.bind (this));
 		
+		// Betting box
 		this.$playerFunds = document.getElementsByClassName ("player_funds_value")[0];
 		
-		this.totalFunds = 50000;
+		this.totalFunds = 2000;
 		this.currentBet = 10;
+		
+		this.$playerFunds.innerHTML = this.totalFunds;
 		
 		let $currentBet = document.getElementsByClassName ("bet_box_value")[0];
 		let $arrowUp = document.getElementsByClassName ("arrow_up")[0];
@@ -31,8 +37,10 @@ class BlackJack {
 		
 		$lock_in.addEventListener ("click", this.buttonLockInClick.bind (this, $betValueWrap, $betValue));
 		
-		this.$controls = document.getElementsByClassName ("control_wrap")[0];
+		// Messages
+		this.$messages = document.getElementsByClassName ("messages")[0];
 		
+		// Card display
 		this.$cardAreaPlayer = document.getElementsByClassName ("player_card_area")[0];
 		this.$cardAreaHouse = document.getElementsByClassName ("house_card_area")[0];
 		
@@ -49,12 +57,28 @@ class BlackJack {
 		this.houseTotal = 0;
 	}
 	
+	/**
+	 * Gets the players current game status.
+	 * 
+	 * @return {String} tag describing the player's current game status
+	 */
+	getPlayerStatus () {
+		var status = "ok";
+		
+		if (this.playerTotal > 21) {
+			status = "bust";
+		}
+		
+		return (status);
+	}
+	
 	startGame () {
 		this.dealToHouse ();
 		this.dealToPlayer ();
 		this.dealToHouse (true);
 		this.dealToPlayer ();
 		
+		this.$controls.classList.remove ("hide");
 		this.$playerTotal.classList.remove ("hide");
 	}
 	
@@ -83,6 +107,8 @@ class BlackJack {
 		
 		if (this.playerTotal > 21) {
 			this.$controls.classList.add ("hide");
+			this.$messages.classList.add ("bust");
+			this.$
 		}
 	}
 	

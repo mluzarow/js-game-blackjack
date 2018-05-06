@@ -29,7 +29,7 @@ body {
 }
 
 .control_wrap.hide {
-	visibility: hidden;
+	display: none;
 }
 
 .control_wrap .button {
@@ -46,6 +46,31 @@ body {
 .control_wrap .button:hover {
 	background-color: #fff;
 	color: #000;
+}
+
+/* -------- Messages -------- */
+.messages {
+	height: 16%;
+	display: none;
+	text-align: center;
+	font-family: "Consolas";
+	font-size: 7em;
+}
+
+.messages .win,
+.messages .bust {
+	display: none;
+}
+
+.messages.win,
+.messages.win .win {
+	display: block;
+}
+
+.messages.bust,
+.messages.bust .bust {
+	display: block;
+	color: #930000;
 }
 
 /* -------- Player Area -------- */
