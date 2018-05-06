@@ -9,15 +9,27 @@ body {
 
 /* -------- Table -------- */
 .house_wrap {
-	height: 40%;
+	height: 42%;
 	display: block;
+	text-align: center;
+}
+
+.house_card_area {
+	padding: 1% 0;
+	height: 100%;
+	display: inline-block;
+	box-sizing: border-box;
 }
 
 /* -------- Controls -------- */
 .control_wrap {
-	height: 20%;
+	height: 16%;
 	display: block;
 	text-align: center;
+}
+
+.control_wrap.hide {
+	visibility: hidden;
 }
 
 .control_wrap .button {
@@ -38,34 +50,179 @@ body {
 
 /* -------- Player Area -------- */
 .player_wrap {
-	height: 40%;
+	height: 42%;
 	display: block;
+	text-align: center;
 }
 
 .player_card_area {
-	margin: 0 auto;
-	width: 60%;
+	padding: 1% 0;
 	height: 100%;
+	display: inline-block;
+	box-sizing: border-box;
 }
 
-.player_card_area img {
+.card_image {
 	margin-left: -175px;
 	height: 100%;
+	display: inline-block;
 }
 
-.player_card_area img:first-child {
+.card_image:first-child {
 	margin-left: 0;
 }
 
-/* -------- Player Funds -------- */
-.player_funds {
+.card_image img {
+	height: 100%;
+}
+
+.card_image img.front {
+	display: none;
+}
+
+.card_image.flipped img.front {
+	display: block;
+}
+
+.card_image.flipped img.back {
+	display: none;
+}
+
+.player_total {
 	position: absolute;
-	top: 0;
-	right: 0;
-	padding: 10px;
-	background-color: rgba(0,0,0,0.35);
-	color: #c7c7c7;
-	line-height: 0.8em;
-	font-family: "Consolas";
+	right: 30%;
+	bottom: 10%;
+	left: 30%;
+	background-color: rgba(0, 0, 0, 0.4);
+	font-family: "Arial";
 	font-size: 3em;
+}
+
+.player_total.hide {
+	display: none;
+}
+
+/* -------- Info Box -------- */
+.info_box {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	width: 200px;
+	background-color: rgba(0, 0, 0, 0.35);
+	border: 2px solid #000;
+	text-align: center;
+}
+
+.bet_wrap {
+	padding-bottom: 7px;
+	display: block;
+	color: #fff;
+	font-family: "Consolas";
+	font-size: 1.7em;
+}
+
+.bet_label {
+	padding-bottom: 5px;
+	display: block;
+	background-color: #000;
+}
+
+.bet_value_wrap .bet_value {
+	display: none;
+}
+
+.bet_value_wrap.locked .bet_setup {
+	display: none;
+}
+
+.bet_value_wrap.locked .bet_value {
+	display: block;
+}
+
+.bet_select {
+	padding-bottom: 5px;
+	width: 100%;
+	height: 1.2em;
+	display: block;
+}
+
+.bet_select_box {
+	width: 80%;
+	height: 100%;
+	display: inline-block;
+}
+
+.bet_arrows_wrap {
+	width: 20%;
+	height: 100%;
+	display: inline-block;
+	vertical-align: top;
+	font-size: 0.5em;
+}
+
+.bet_arrows_wrap .arrow {
+	height: 50%;
+	cursor: pointer;
+}
+
+.bet_arrows_wrap .arrow::before {
+	width: 0;
+	height: 100%;
+	display: inline-block;
+	vertical-align: sub;
+	content: '';
+}
+
+.bet_arrows_wrap .arrow:hover {
+	color: #000;
+	background-color: #fff;
+}
+
+.bet_arrows_wrap .arrow span {
+	display: inline-block;
+	vertical-align: sub;
+}
+
+.lock_in_wrap {
+	padding: 0 10%;
+	box-sizing: border-box;
+	font-size: 0.8em;
+}
+
+.lock_in {
+	border: 1px solid #f00;
+	color: #f00;
+	cursor: pointer;
+}
+
+.lock_in:hover {
+	background-color: #f00;
+	color: #000;
+}
+
+.funds_wrap {
+	font-family: "Consolas";
+	font-size: 1.5em;
+}
+
+.funds_label {
+	padding: 2px;
+	width: 30%;
+	display: inline-block;
+	background-color: #000;
+	box-sizing: border-box;
+	color: #fff;
+}
+
+.player_funds {
+	width: 70%;
+	display: inline-block;
+}
+
+@media screen and (max-width: 1350px) {
+	/* -------- Controls -------- */
+	.control_wrap .button {
+		min-width: 210px;
+		font-size: 2em;
+	}
 }

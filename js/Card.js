@@ -20,7 +20,10 @@ class Card {
 		 */
 		this.text = this.toString ();
 		
-		this.image = this.toImageSource ();
+		this.imageBack = this.toImageSource ();
+		this.imageFront = "img/card_front.png";
+		
+		this.$element = this.toElement ();
 	}
 	
 	toString () {
@@ -101,5 +104,31 @@ class Card {
 		cardImageSource += "_large.png"
 		
 		return (cardImageSource);
+	}
+	
+	toElement () {
+		let newNode = document.createElement ("div");
+		newNode.classList.add ("card_image");
+		
+		let imgFront = document.createElement ("img");
+		imgFront.src = this.imageFront;
+		imgFront.classList.add ("front");
+		
+		let imgBack = document.createElement ("img");
+		imgBack.src = this.imageBack;
+		imgBack.classList.add ("back");
+		
+		newNode.appendChild (imgFront);
+		newNode.appendChild (imgBack);
+		
+		return (newNode);
+	}
+	
+	flip () {
+		if (this.$element.classList === "flipped") {
+			this.$element.classList.remove ("flipped");
+		} else {
+			this.$element.classList.add ("flipped");
+		}
 	}
 }
