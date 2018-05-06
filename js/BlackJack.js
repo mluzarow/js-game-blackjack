@@ -40,10 +40,12 @@ class BlackJack {
 	 * @return {String} tag describing the player's current game status
 	 */
 	getPlayerStatus () {
-		var status = "ok";
-		
 		if (this.playerTotal > 21) {
 			status = "bust";
+		} else if (this.playerTotal > this.houseTotal) {
+			status = "winning";
+		} else {
+			status = "losing";
 		}
 		
 		return (status);

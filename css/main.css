@@ -58,12 +58,18 @@ body {
 }
 
 .messages .win,
+.messages .lose,
 .messages .bust {
 	display: none;
 }
 
 .messages.win,
 .messages.win .win {
+	display: block;
+}
+
+.messages.lose,
+.messages.lose .lose {
 	display: block;
 }
 

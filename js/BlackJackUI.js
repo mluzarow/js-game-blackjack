@@ -89,8 +89,18 @@ class BlackJackUI {
 		this.addCard (deltCard, "house");
 	}
 	
+	/**
+	 * Handles click of the "stand" control button. Checks house total card value
+	 * against the players. If the player's is more, they win.
+	 */
 	buttonStandClick () {
-		
+		if (this.game.getPlayerStatus () === "winning") {
+			this.$controls.classList.add ("hide");
+			this.$messages.classList.add ("win");
+		} else {
+			this.$controls.classList.add ("hide");
+			this.$messages.classList.add ("lose");
+		}
 	}
 	
 	buttonDoubleClick () {
