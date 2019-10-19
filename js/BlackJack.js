@@ -59,6 +59,11 @@ class BlackJack {
 	startGame () {
 		let deltCards = {"house" : {}, "player" : {}};
 		
+		this.playerTotal = 0;
+		this.houseTotal = 0;
+		this.playerDeck = new Deck ();
+		this.houseDeck = new Deck ();
+		
 		deltCards["house"][0] = this.deal ("house");
 		deltCards["player"][0] = this.deal ("player");
 		deltCards["house"][1] = this.deal ("house");
@@ -94,7 +99,9 @@ class BlackJack {
 	 * @return {Int} player's total after the current bet
 	 */
 	placeBet () {
-		return (this.totalFunds - this.currentBet);
+		this.totalFunds -= this.currentBet;
+		
+		return (this.totalFunds);
 	}
 	
 	/**
@@ -127,5 +134,16 @@ class BlackJack {
 		}
 		
 		return (status);
+	}
+	
+	/**
+	 * Player wins current bet amount.
+	 * 
+	 * @return {Number} currenty player total
+	 */
+	win () {
+		this.totalFunds += this.currentBet;
+		
+		return this.totalFunds;
 	}
 }

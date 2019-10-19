@@ -83,6 +83,7 @@ class BlackJackUI {
 		if (status === "bust") {
 			this.$controls.classList.add ("hide");
 			this.$messages.classList.add ("bust");
+			this.$betValueWrap.classList.remove ("locked");
 		}
 		
 		deltCard = this.game.deal ("house");
@@ -97,10 +98,14 @@ class BlackJackUI {
 		if (this.game.getPlayerStatus () === "winning") {
 			this.$controls.classList.add ("hide");
 			this.$messages.classList.add ("win");
+			
+			this.game.win ();
 		} else {
 			this.$controls.classList.add ("hide");
 			this.$messages.classList.add ("lose");
 		}
+		
+		this.$betValueWrap.classList.remove ("locked");
 	}
 	
 	buttonDoubleClick () {
@@ -118,6 +123,10 @@ class BlackJackUI {
 	buttonLockInClick () {
 		this.$betValue.innerHTML = this.game.currentBet;
 		this.$betValueWrap.classList.add ("locked");
+		
+		this.$messages.classList = "messages";
+		
+		this.dumpCards ();
 		
 		this.$playerFunds.innerHTML = this.game.placeBet ();
 		
@@ -168,5 +177,13 @@ class BlackJackUI {
 		} else {
 			this.$cardAreaHouse.appendChild (card.$element);
 		}
+	}
+	
+	/**
+	 * Dumps all the cards currently on the table.
+	 */
+	dumpCards () {
+		this.$cardAreaPlayer.innerHTML = "";
+		this.$cardAreaHouse.innerHTML = "";
 	}
 }
